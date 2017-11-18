@@ -73,11 +73,11 @@ def command_parade():
                 time.sleep(0.5)
                 print("Your country's tension is now zero percent!")
                 time.sleep(0.5)
-                print("Followin the parade, a visting group of 100 civilians have decided to live in %s!" % country)
+                print("Following the parade, a visiting group of 100 civilians have decided to live in %s!" % country)
             else:
                 print("The parade was a disaster!")
                 time.sleep(0.5)
-                print("All the parade did was show off your frivolous spenging habits!")
+                print("All the parade did was show off your frivolous spending habits!")
                 time.sleep(1)
                 print("Tension in your country has risen by 51%! A civil war is possible!")
                 tension = tension + 51
@@ -107,47 +107,28 @@ def command_buy():
     print("5 = 5000 soldiers for £20,000")
     buy = input("")
     if buy == "1":
-        print("You have purchased 100 soldiers.")
-        army = army + 100
-        money = money - 500
-        if money < 0:
-            print("No money. Could not purchase soldiers.")
-            money = money + 500
-            army = army - 100
+        buy_soldiers(100, 500)
     elif buy == "2":
-        print("You have purchased 1000 soldiers.")
-        army = army + 1000
-        money = money - 5000
-        if money < 0:
-            print("No money. Could not purchase soldiers.")
-            money = money + 5000
-            army = army - 1000
+        buy_soldiers(1000, 5000)
     elif buy == "3":
-        print("You have purchased 1500 soldiers.")
-        army = army + 1500
-        money = money - 7000
-        if money < 0:
-            print("No money. Could not purchase soldiers.")
-            money = money + 7000
-            army = army - 1500
+        buy_soldiers(1500, 7000)
     elif buy == "4":
-        print("You have purchased 2000 soldiers.")
-        army = army + 2000
-        money = money - 9500
-        if money < 0:
-            print("No money. Could not purchase soldiers.")
-            money = money + 9500
-            army = army - 2000
+        buy_soldiers(2000, 9500)
     elif buy == "5":
-        print("You have purchased 5000 soldiers")
-        army = army + 5000
-        money = money - 20000
-        if money < 0:
-            print("No money. Could not purchase soldiers.")
-            money = money + 20000
-            army = army - 5000
+        buy_soldiers(5000, 20000)
     else:
         print("Incorrect command!")
+
+
+def buy_soldiers(soldiers, cost):
+    global army
+    global money
+    if money > cost:
+        print("You have purchased {0} soldiers".format(soldiers))
+        army = army + soldiers
+        money = money - cost
+    else:
+        print("No money. Could not purchase soldiers.")
 
 
 def command_explore():
@@ -231,9 +212,6 @@ def command_war():
     global fr
     global ge
     global ru
-    global army
-    global money
-    global tension
 
     print("Which country would you like to go to war with?")
     time.sleep(0.1)
@@ -242,206 +220,71 @@ def command_war():
     print("3 = France")
     print("4 = Germany")
     print("5 = Russia")
+
     target = input("")
     if target == "1":
-        if us == 1:
-            victory = (army / (army + 10000) * 100)
-            print("The USA has an army of 10,000 men. Your chance of winning is %d percent." % victory)
-            time.sleep(0.5)
-            print("Would you like to go to war with the USA?")
-            print("1=yes/2=no")
-            answer = input("")
-            if answer == "1":
-                print("Your troops are travelling to America...")
-                time.sleep(1)
-                print("Your troops are fighting...")
-                time.sleep(1)
-                if random.randint(0, 100) < victory:
-                    us = 0
-                    print('Success! Your troops defeated the opposition soldiers!')
-                    print('You were also able to convert 2,000 enemy soldiers!')
-                    army = army + 2000
-                    print("Your net profit from the war was $500.")
-                    money = money + 500
-                    print("As a result of your success, your country's tension has decreased by 5%.")
-                    tension = tension - 5
-                    if tension < 0:
-                        tension = 0
-                    else:
-                        return False
-                else:
-                    army = army / 2
-                    print('Failure! Your troops were defeated, %d men were killed.' % army)
-                    print("As a result of your failure, your country's tension has increased by 6%")
-                    tension = tension + 6
-                    time.sleep(1)
-                    print("The defeat cost you $500")
-                    money = money - 500
-            else:
-                print("")
-
-        else:
-            print("You have already conquered the USA!")
+        us = war(us, "The USA", 10000, 2000)
 
     if target == "2":
-        if uk == 1:
-            victory = (army / (army + 7500) * 100)
-            print("The UK has an army of 7,500 men. Your chance of winning is %d percent." % victory)
-            time.sleep(0.5)
-            print("Would you like to go to war with the UK?")
-            print("1=yes/2=no")
-            answer = input("")
-            if answer == "1":
-                print("Your troops are travelling to the UK...")
-                time.sleep(1)
-                print("Your troops are fighting...")
-                time.sleep(1)
-                if random.randint(0, 100) < victory:
-                    uk = 0
-                    print('Success! Your troops defeated the opposition soldiers!')
-                    print('You were also able to convert 1,500 enemy soldiers!')
-                    army = army + 1500
-                    print("Your net profit from the war was $500.")
-                    money = money + 500
-                    print("As a result of your success, your country's tension has decreased by 4%.")
-                    tension = tension - 4
-                    if tension < 0:
-                        tension = 0
-                    else:
-                        return False
-                else:
-                    army = army / 2
-                    print('Failure! Your troops were defeated, %d men were killed.' % army)
-                    print("As a result of your failure, your country's tension has increased by 7%")
-                    tension = tension + 7
-                    time.sleep(1)
-                    print("The defeat cost you $500")
-                    money = money - 500
+        uk = war(uk, "The UK", 7500, 1500)
 
-            else:
-                print("")
-        else:
-            print("You have already conquered the UK!")
     if target == "3":
-        victory = (army / (army + 5000) * 100)
-        print("France has an army of 5,000 men. Your chance of winning is %d percent." % victory)
-        time.sleep(0.5)
-        print("Would you like to go to war with France?")
-        print("1=yes/2=no")
-        answer = input("")
-        if answer == "1":
-            if fr == 1:
-                print("Your troops are travelling to France...")
-                time.sleep(1)
-                print("Your troops are fighting...")
-                time.sleep(1)
-                if random.randint(0, 100) < victory:
-                    fr = 0
-                    print('Success! Your troops defeated the opposition soldiers!')
-                    print('You were also able to convert 1000 enemy soldiers!')
-                    army = army + 1000
-                    print("Your net profit from the war was $500.")
-                    money = money + 500
-                    print("As a result of your success, your country's tension has decreased by 3%.")
-                    tension = tension - 3
-                    if tension < 0:
-                        tension = 0
-                    else:
-                        return False
-                else:
-                    army = army / 2
-                    print('Failure! Your troops were defeated, %d men were killed.' % army)
-                    print("As a result of your failure, your country's tension has increased by 8%")
-                    tension = tension + 8
-                    time.sleep(1)
-                    print("The defeat cost you $500")
-                    money = money - 500
-
-            else:
-                print("You have already conquered France!")
-        else:
-            print("")
+        fr = war(fr, "France", 5000, 1000)
 
     if target == "4":
-        victory = (army / (army + 4500) * 100)
-        print("Germany has an army of 4,500 men. Your chance of winning is %d percent." % victory)
-        time.sleep(0.5)
-        print("Would you like to go to war with Germany?")
-        print("1=yes/2=no")
-        answer = input("")
-        if answer == "1":
-            if ge == 1:
-                print("Your troops are travelling to Germany...")
-                time.sleep(1)
-                print("Your troops are fighting...")
-                time.sleep(1)
-                if random.randint(0, 100) < victory:
-                    ge = 0
-                    print('Success! Your troops defeated the opposition soldiers!')
-                    print('You were also able to convert 750 enemy soldiers!')
-                    army = army + 750
-                    print("Your net profit from the war was $500.")
-                    money = money + 500
-                    print("As a result of your success, your country's tension has decreased by 2%.")
-                    tension = tension - 2
-                    if tension < 0:
-                        tension = 0
-                    else:
-                        return False
-                else:
-                    army = army / 2
-                    print('Failure! Your troops were defeated, %d men were killed.' % army)
-                    print("As a result of your failure, your country's tension has increased by 9%")
-                    tension = tension + 9
-                    time.sleep(1)
-                    print("The defeat cost you $500")
-                    money = money - 500
-            else:
-                print("You have already conquered Germany!")
-
-        else:
-            print("")
+        ge = war(ge, "Germany", 4500, 750)
 
     if target == "5":
-        victory = (army / (army + 50000) * 100)
-        print("Russia has an army of 50000 men. Your chance of winning is %d percent." % victory)
-        time.sleep(0.5)
-        print("Would you like to go to war with Russia?")
-        print("1=yes/2=no")
-        answer = int(input(""))
-        if answer == 1:
-            if ru == 1:
-                print("Your troops are travelling to Russia...")
-                time.sleep(1)
-                print("Your troops are fighting...")
-                time.sleep(1)
-                if random.randint(0, 100) < victory:
-                    ru = 0
-                    print('Success! Your troops defeated the opposition soldiers!')
-                    print('You were also able to convert 7500 enemy soldiers!')
-                    army = army + 7500
-                    print("Your net profit from the war was $500.")
-                    money = money + 500
-                    print("As a result of your success, your country's tension has decreased by 10%.")
-                    tension = tension - 10
-                    if tension < 0:
-                        tension = 0
-                    else:
-                        return False
-                else:
-                    army = army / 1.5
-                    print('Failure! Your troops were defeated, %d men were killed.' % army)
-                    print("As a result of your failure, your country's tension has increased by 5%")
-                    tension = tension + 5
-                    time.sleep(1)
-                    print("The defeat cost you $500")
-                    money = money - 500
-            else:
-                print("You have already conquered Russia!")
+        ru = war(ru, "Russia", 50000, 7500)
     return True
 
 
+def war(target, name, standing_army, conversion):
+    global army
+    global money
+    global tension
+    victory = (army / (army + standing_army) * 100)
+    print("{0} has an army of {1} men. Your chance of winning is {2} percent.".format(name, standing_army, victory))
+    time.sleep(0.5)
+    print("Would you like to go to war with {0}?".format(name))
+    print("1=yes/2=no")
+    answer = int(input(""))
+    if answer == 1:
+        if target == 1:
+            print("Your troops are travelling to {0}...".format(name))
+            time.sleep(1)
+            print("Your troops are fighting...")
+            time.sleep(1)
+            if random.randint(0, 100) < victory:
+                target = 0
+                print('Success! Your troops defeated the opposition soldiers!')
+                print('You were also able to convert {0} enemy soldiers!'.format(conversion))
+                army = army + conversion
+                print("Your net profit from the war was $500.")
+                money = money + 500
+                print("As a result of your success, your country's tension has decreased by 10%.")
+                tension = tension - 10
+                if tension < 0:
+                    tension = 0
+            else:
+                army = army / 1.5
+                print('Failure! Your troops were defeated, %d men were killed.' % army)
+                print("As a result of your failure, your country's tension has increased by 5%")
+                tension = tension + 5
+                time.sleep(1)
+                print("The defeat cost you $500")
+                money = money - 500
+        else:
+            print("You have already conquered {0}!".format(name))
+    return target
+
+
 def civil_war():
+    global us
+    global uk
+    global fr
+    global ge
+    global ru
     global tension
     global army
     global population
