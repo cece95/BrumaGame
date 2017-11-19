@@ -77,8 +77,8 @@ class World:
             i = i+1
             print('{} = {} soldiers for ${}'.format(i, a['quantity'], a['price']))
 
-        buy = input("")
-        if buy < len(army_list) and buy > 0: 
+        buy = int(input(""))
+        if buy < len(army_list)+1 and buy > 0: 
             quantity = army_list[buy-1]['quantity']
             price = army_list[buy-1]['price']
             self.buy_troops(quantity, price)
