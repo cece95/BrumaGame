@@ -13,10 +13,9 @@ class World:
         self.initialize_enemy_nations()
 
     def initialize_enemy_nations(self):
-        with open('Countries.json', 'r') as json_file:
-            countries_list = json.load(json_file)
+        with open('Countries.json', 'r') as countries_file:
             self.enemy_nations = []
-            for c in countries_list:
+            for c in json.load(countries_file):
                 self.enemy_nations.append(EnemyCountry(c))
 
     @staticmethod
@@ -70,22 +69,19 @@ class World:
     def command_buy(self):
         print("What would you like to buy?")
         time.sleep(0.5)
-        print("1 = 100 soldiers for $500")
-        print("2 = 1000 soldiers for $5,000")
-        print("3 = 1500 soldiers for $7,000")
-        print("4 = 2000 soldiers for $9,500")
-        print("5 = 5000 soldiers for £20,000")
+        army_list = []
+        with open('Army.json', 'r') as army_file:
+            army_list = json.load(army_file)
+        i = 0
+        for a in army_list:
+            i = i+1
+            print('{} = {} soldiers for ${}'.format(i, a['quantity'], a['price']))
+
         buy = input("")
-        if buy == "1":
-            self.buy_troops(100, 500)
-        elif buy == "2":
-            self.buy_troops(1000, 5000)
-        elif buy == "3":
-            self.buy_troops(1500, 7000)
-        elif buy == "4":
-            self.buy_troops(2000, 9500)
-        elif buy == "5":
-            self.buy_troops(5000, 20000)
+        if buy < len(army_list) and buy > 0: 
+            quantity = army_list[buy-1]['quantity']
+            price = army_list[buy-1]['price']
+            self.buy_troops(quantity, price)
         else:
             print("Incorrect command!")
 
@@ -163,11 +159,11 @@ class World:
     def command_war(self):
         print("Which country would you like to go to war with?")
         time.sleep(0.1)
-        print("1 = United States of America")
-        print("2 = United Kingdom")
-        print("3 = France")
-        print("4 = Germany")
-        print("5 = Russia")
+        with open('Countries.json', 'r') as countries_file:
+            i = 0
+            for c in json.load(countries_file):
+                i = i + 1
+                print('{} = {}'.format(i, c['name'])) 
 
         target = int(input(""))
         if target in range(1, 6):

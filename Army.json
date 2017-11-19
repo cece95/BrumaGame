@@ -1,0 +1,28 @@
+[
+    {
+        "quantity": 100,
+        "price": 500
+    },
+    {
+        "quantity": 1000,
+        "price": 5000
+    },
+    {
+        "quantity": 1500,
+        "price": 7000
+    },
+    {
+        "quantity": 2000,
+        "price": 9500
+    },
+    {
+        "quantity": 5000,
+        "price": 20000
+    }
+]
+
+print("1 = 100 soldiers for $500")
+print("2 = 1000 soldiers for $5,000")
+print("3 = 1500 soldiers for $7,000")
+print("4 = 2000 soldiers for $9,500")
+print("5 = 5000 soldiers for £20,000")
