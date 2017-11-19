@@ -1,0 +1,32 @@
+[
+    {
+        "name": "The USA",
+        "army": 10000,
+        "victory_money": 500,
+        "victory_troops": 2000    
+    },
+    {
+        "name": "The UK",
+        "army": 7500,
+        "victory_money": 500,
+        "victory_troops": 1500     
+    },
+    {
+        "name": "France",
+        "army": 5000,
+        "victory_money": 500,
+        "victory_troops": 1000    
+    },
+    {
+        "name": "Germany",
+        "army": 4500,
+        "victory_money": 500,
+        "victory_troops": 750    
+    },
+    {
+        "name": "Russia",
+        "army": 50000,
+        "victory_money": 500,
+        "victory_troops": 7500    
+    }
+]

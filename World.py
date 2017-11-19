@@ -1,10 +1,10 @@
 import random
 import time
+import json
 from functools import reduce
 
 from PlayerCountry import PlayerCountry
 from EnemyCountry import EnemyCountry
-
 
 class World:
     def __init__(self):
@@ -13,17 +13,11 @@ class World:
         self.initialize_enemy_nations()
 
     def initialize_enemy_nations(self):
-        self.enemy_nations = []
-        self.enemy_nations.append(EnemyCountry("The USA", army=10000,
-                                               victory_money=500, victory_troops=2000))
-        self.enemy_nations.append(EnemyCountry("The UK", army=7500,
-                                               victory_money=500, victory_troops=1500))
-        self.enemy_nations.append(EnemyCountry("France", army=5000,
-                                               victory_money=500, victory_troops=1000))
-        self.enemy_nations.append(EnemyCountry("Germany", army=4500,
-                                               victory_money=500, victory_troops=750))
-        self.enemy_nations.append(EnemyCountry("Russia", army=50000,
-                                               victory_money=500, victory_troops=7500))
+        with open('Countries.json', 'r') as json_file:
+            countries_list = json.load(json_file)
+            self.enemy_nations = []
+            for c in countries_list:
+                self.enemy_nations.append(EnemyCountry(c))
 
     @staticmethod
     def command_help():

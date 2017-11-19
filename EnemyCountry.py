@@ -1,7 +1,9 @@
+import json
+
 class EnemyCountry:
-    def __init__(self, name, army, victory_money, victory_troops):
+    def __init__(self, json):
         self.defeated = False
-        self.name = name
-        self.army = army
-        self.victory_money = victory_money
-        self.victory_troops = victory_troops
+        self.name = json['name']
+        self.army = json['army']
+        self.victory_money = json['victory_money']
+        self.victory_troops = json['victory_troops']
